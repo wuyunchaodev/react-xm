@@ -1,16 +1,17 @@
 import React ,{useEffect} from 'react'
 import {notification} from 'antd'
 
-export default function MyNotification({ type='info', message='系统提示',
-description}) {
+export default function MyNotification({ notiMag}) {
   const [api, contextHolder] = notification.useNotification();
   
   useEffect(() =>  {
-    api [type]({
-        message,
-        description
+    if(notiMag.type){
+    api [notiMag.type]({
+      message:'系统提示',
+        description:notiMag.description
     })
-  },[])
+    }
+  },[notiMag])
   return (
     <div>
       <>{contextHolder}</>

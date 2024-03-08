@@ -1,0 +1,40 @@
+
+.layout{
+    width: 100vw;
+    height: 100vh;
+    .logo{
+        height: 32px;
+        margin: 16px ;
+        background: rgba(153, 148, 148, 0.3);
+        color: white;
+        font-size: 18px;
+        text-align:center;
+        line-height: 32px;
+    }
+    .header{
+        padding: 5px;
+        
+        .trigger{
+            padding: 0 12px;
+        font-size: 18px;
+        line-height: 64px;
+        cursor: pointer;
+        transition: color 0.3s;
+        color: white;
+         &:hover{
+            color: #1890ff;
+         }
+
+    }
+   
+    }
+    .content{
+        padding: 5px;
+
+    }
+}
+
+
+#componemts-Layout-ddemo-custom-trigger.trigger:hover {
+    color: #1890ff;
+}

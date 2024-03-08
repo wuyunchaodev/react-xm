@@ -1,26 +1,26 @@
-import React from 'react'
+import React ,{useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import './Login.scss'
 import { Button, Form, Input ,notification} from 'antd';
 import { $login } from '../../api/adminApi'
 import MyNotification from '../../components/MyNotification/MyNotification';
 export default function Login() {
-  //提示框
-  const [api, contextHolder] = notification.useNotification();
+  //通知框状态
+
+  //导航
+  let navigate =useNavigate()
+  let [notiMsg,setNotiMsg] = useState({type:'',description:''}) 
   //打开提示框
-  const openNotification = (type,description) => {
-    api[type]({
-      message: '系统提示',
-      description
-    });
-  };
   let [from] = Form.useForm()
   //表示表单成功提交
   const onFinish = async (values) => {
     let {message,success} = await $login(values)
     if(success){
-      openNotification('success',message)
+      setNotiMsg({type:'success',description:message})
+     
+      navigate('/layout') //跳转首页
     }else{
-      openNotification('error',message)
+      setNotiMsg({type:'error',description:message})
     }
   };
   return (
@@ -91,7 +91,7 @@ export default function Login() {
     </Form.Item>
   </Form>
       </div>
-      {contextHolder}
+      <MyNotification notiMag={notiMsg}/>//消息框 notiMag是监听状态
     </div>
   )
 }
