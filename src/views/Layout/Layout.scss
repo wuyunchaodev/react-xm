@@ -13,7 +13,13 @@
     }
     .header{
         padding: 5px;
-        
+        display: flex;
+        border: 1px solid;
+        justify-content: space-between;
+        .mune{
+            padding: 0 10px;
+          
+        }
         .trigger{
             padding: 0 12px;
         font-size: 18px;
