@@ -11,42 +11,45 @@ import { Layout, Menu, Button, theme } from 'antd';
 import './Layout.scss'//导入layout
 const { Header, Sider, Content } = Layout;
 export default function () {
-  //顶部菜单
   const [current, setCurrent] = useState('mail');
-  //菜单项
+  //顶部菜单项
   const items = [   
     {
       label: '首页',  
-      key: 'mail',
+      key: 'home',
       icon: <MailOutlined />,
     },
     {
-      label: 'Navigation Two',
-      key: 'app',
-      icon: <AppstoreOutlined />,
-      disabled: true,
+      label: '库存',  
+      key: 'kc',
+      icon: <MailOutlined />,
     },
     {
-      label: 'Navigation Three - Submenu',
+      label: '账单',  
+      key: 'rich',
+      icon: <MailOutlined />,
+    },
+    {
+      label: '管理功能',
       key: 'SubMenu',
       icon: <SettingOutlined />,
       children: [
         {
-          type: 'group',
-          label: 'Item 1',
+          key: 'group1',
+          label: '个人中心',
           children: [
             {
-              label: 'Option 1',
+              label: '个人信息',
               key: 'setting:1',
             },
             {
-              label: 'Option 2',
+              label: '退出系统',
               key: 'setting:2',
             },
           ],
         },
         {
-          type: 'group',
+          key: 'group2',
           label: 'Item 2',
           children: [
             {
@@ -61,15 +64,57 @@ export default function () {
         },
       ],
     },
-    {
-      label: (
-        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-          Navigation Four - Link
-        </a>
-      ),
-      key: 'alipay',
-    },
   ];
+  //左侧菜单项
+  const items2 = [
+    [
+      {
+        key: '1',
+        icon: <UserOutlined />,
+        label: '账户',
+        children:[
+          {
+            key:'1-1',
+            label:'角色管理'
+          },
+          {
+            key:'1-2',
+            label:'财务管理'
+          }
+        ]
+      },
+      {
+        key: '2',
+        icon: <VideoCameraOutlined />,
+        label: '库存管理',
+        children:[
+          {
+            key:'2-1',
+            label:'价格管理'
+        },
+        {
+          key:'2-2',
+          label:'数量管理'
+        },
+      ]
+      },
+      {
+        key: '3',
+        icon: <UploadOutlined />,
+        label: '客户管理',
+        children:[
+          {
+            key:3-1,
+            label:'商家联系方式'
+          },
+          {
+            key:3-2,
+            label:'交易成功记录'
+          }
+        ]
+      },
+    ]
+  ]
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -80,23 +125,7 @@ export default function () {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: '1',
-              icon: <UserOutlined />,
-              label: '账户',
-            },
-            {
-              key: '2',
-              icon: <VideoCameraOutlined />,
-              label: '库存管理',
-            },
-            {
-              key: '3',
-              icon: <UploadOutlined />,
-              label: '客户管理',
-            },
-          ]}
+          items={items2}
         />
       </Sider>
       <Layout className='right'>
@@ -112,7 +141,7 @@ export default function () {
               height: 64,
             }}
           />
-          <Menu theme='dark' className='menu' selectedKeys={[current]} mode="horizontal" items={items} />;
+          <Menu onClick={(onClickMenu)} theme='dark' className='menu' selectedKeys={[current]} mode="horizontal" items={items} />;
         </Header>
         <Content className='content'>
           Content
