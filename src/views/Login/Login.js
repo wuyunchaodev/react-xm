@@ -1,12 +1,16 @@
-import React ,{useState} from 'react'
+import React ,{useState,useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import './Login.scss'
-import { Button, Form, Input ,notification} from 'antd';
+import { Button, Form, Input } from 'antd';
 import { $login } from '../../api/adminApi'
 import MyNotification from '../../components/MyNotification/MyNotification';
 export default function Login() {
-  //通知框状态
-
+  //判断是否登录成功
+    useEffect(() =>{
+      if(sessionStorage.getItem('token')){
+        navigate('/layout')
+      }
+    },[])
   //导航
   let navigate =useNavigate()
   let [notiMsg,setNotiMsg] = useState({type:'',description:''}) 

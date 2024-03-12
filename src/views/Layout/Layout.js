@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
+  DollarOutlined,
+  HomeOutlined ,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
@@ -7,17 +9,27 @@ import {
   VideoCameraOutlined,
   AppstoreOutlined, MailOutlined, SettingOutlined
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme } from 'antd';
+import { Layout, Menu, Button, Modal } from 'antd';
+const {confirm} = Modal;
+import {useNavigate,Outlet} from 'react-router-dom'
 import './Layout.scss'//导入layout
 const { Header, Sider, Content } = Layout;
 export default function () {
+
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(!sessionStorage.getItem('token')){
+      navigate('/')
+    }
+  },[])
+
   const [current, setCurrent] = useState('mail');
   //顶部菜单项
   const items = [   
     {
       label: '首页',  
       key: 'home',
-      icon: <MailOutlined />,
+      icon: <HomeOutlined />,
     },
     {
       label: '库存',  
@@ -27,7 +39,7 @@ export default function () {
     {
       label: '账单',  
       key: 'rich',
-      icon: <MailOutlined />,
+      icon: <DollarOutlined />,
     },
     {
       label: '管理功能',
@@ -44,7 +56,7 @@ export default function () {
             },
             {
               label: '退出系统',
-              key: 'setting:2',
+              key: 'exit',
             },
           ],
         },
@@ -74,7 +86,7 @@ export default function () {
         label: '账户',
         children:[
           {
-            key:'1-1',
+            key:'role',
             label:'角色管理'
           },
           {
@@ -115,6 +127,33 @@ export default function () {
       },
     ]
   ]
+
+  //点击菜单方法
+  const onClickMenu = (e)=>{
+    setCurrent(e.key)
+    switch(e.key){
+      //角色管理
+      case 'role':
+        navigate('/layout/role')
+      //退出系统
+      case 'exit':
+        confirm({
+          title:'系统提示',
+          icon:<SettingOutlined />,
+          content:'确定退出吗？',
+          okText:'确定',
+          canceLText:'取消',
+          onOk(){
+            //清除缓存
+            sessionStorage.clear()
+            localStorage.clear()
+            navigate('/')//跳转首页
+          },
+        });
+        break
+    }
+  }
+  //侧边状态栏
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -122,6 +161,7 @@ export default function () {
       <Sider  trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" >{collapsed?'苹果':"库存管理系统"}</div>
         <Menu
+        onClick={onClickMenu}
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
@@ -144,9 +184,10 @@ export default function () {
           <Menu onClick={(onClickMenu)} theme='dark' className='menu' selectedKeys={[current]} mode="horizontal" items={items} />;
         </Header>
         <Content className='content'>
-          Content
+          <Outlet></Outlet>
         </Content>
       </Layout>
     </Layout>
+    
   );
 };
