@@ -8,7 +8,8 @@ export default function MyNotification({ notiMag}) {
     if(notiMag.type){
     api [notiMag.type]({
       message:'系统提示',
-        description:notiMag.description
+        description:notiMag.description,
+        duration:2
     })
     }
   },[notiMag])

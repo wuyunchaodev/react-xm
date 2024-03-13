@@ -17,6 +17,7 @@ const { Header, Sider, Content } = Layout;
 export default function () {
 
   const navigate = useNavigate()
+
   useEffect(()=>{
     if(!sessionStorage.getItem('token')){
       navigate('/')
@@ -135,6 +136,7 @@ export default function () {
       //角色管理
       case 'role':
         navigate('/layout/role')
+        break;
       //退出系统
       case 'exit':
         confirm({

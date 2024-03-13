@@ -13,6 +13,7 @@ export default function Login() {
     },[])
   //导航
   let navigate =useNavigate()
+  
   let [notiMsg,setNotiMsg] = useState({type:'',description:''}) 
   //打开提示框
   let [from] = Form.useForm()
