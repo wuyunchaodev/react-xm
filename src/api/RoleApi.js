@@ -11,3 +11,8 @@ export const $add = async (params)=>{
     let {data} = await axios.post('Role/Add',params)
     return data
 }
+//删除角色
+export const $del = async (params)=>{
+    let {data} = await.post('Role/Delete',params)
+    return data 
+}

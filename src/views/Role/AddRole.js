@@ -78,7 +78,7 @@ export default function AddRole({open,setOpen,loadList}) {
           </Form.Item>
         </Form>
       </Drawer>
-      <MyNotification notiMag={notiMag} />
+      <MyNotification notiMag={notiMsg} />
    </>
   )
 }
