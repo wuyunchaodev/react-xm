@@ -4,6 +4,8 @@ import { $list ,$del} from '../../api/RoleApi'
 import AddRole from './AddRole';
 import MyNotification from '../../components/MyNotification/MyNotification';
 export default function Role() {
+  //编辑状态id
+  let [roleId,setRoleId] = useState(0)
    //通知栏
    let [notiMsg,setNotiMsg] = useState({type:'',description:''})
   //是否打开抽屉
@@ -26,6 +28,11 @@ export default function Role() {
       })
       setRoleList(data)
     })
+  }
+  //编辑方法
+  const edit = (roleId)=>{
+    setOpen(true) //打开抽屉
+    setRoleId(roleId) //编辑状态
   }
   //删除方法
   const del = (roleId) =>{
@@ -70,6 +77,12 @@ export default function Role() {
     title:'操作',
     key:'action',
     render:(ret) => (
+     <>
+     <Button size="small" onClick={()=>{
+      edit(ret.roleId)
+     }}>
+      编辑
+     </Button>
       <Popconfirm   //  汽泡
     title="提示"
     description="确定删除吗?"
@@ -77,8 +90,9 @@ export default function Role() {
     okText="确定"
     cancelText="取消"
   >
-    <Button danger size='small'>删除</Button>
+    <Button style={{ marginLeft:'5px'}} danger size='small'>删除</Button>
   </Popconfirm>
+     </>
      
     ),
     },
@@ -89,7 +103,7 @@ export default function Role() {
         <Button size='small' onClick={() => { setOpen(true) }}>添加</Button>
       </div>
       <Table size='small' dataSource={dataSource} columns={columns} />;
-      <AddRole open={open} setOpen={setOpen} loadList={loadList}/>
+      <AddRole open={open} setOpen={setOpen} loadList={loadList } roleId={roleId} setRoleId={setRoleId}/>
       <MyNotification notiMag={notiMsg} />
     </div>
   )
