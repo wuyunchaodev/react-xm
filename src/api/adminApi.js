@@ -11,4 +11,8 @@ export const $login = async (params) =>{
    }
    return data
 }
-
+//用户列表
+export const $list = async (params)=>{
+    let {data} = await axios.get('Admin/List',{params})
+    return data
+}

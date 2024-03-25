@@ -91,7 +91,7 @@ export default function () {
             label:'角色管理'
           },
           {
-            key:'1-2',
+            key:'money',
             label:'财务管理'
           }
         ]
@@ -136,6 +136,10 @@ export default function () {
       //角色管理
       case 'role':
         navigate('/layout/role')
+        break;
+        //用户管理
+        case"money":
+        navigate("/layout/admin")
         break;
       //退出系统
       case 'exit':
