@@ -1,8 +1,11 @@
 import React ,{useState,useEffect}from 'react'//money
-import {Table} from 'antd'
+import {Table,Button} from 'antd'
 import {$list} from '../../api/adminApi'
+import AddAdmin from './AddAdmin';
 
 export default function Admin() {
+    //是否打开抽屉
+     const [open, setOpen] = useState(false);
     //角色列表数据
     let [adminList, setAdminList] = useState([])
     //表格列数据
@@ -68,7 +71,11 @@ export default function Admin() {
        }, [])
   return (
     <>
+     <div className='search'>
+        <Button size='small' onClick={() => { setOpen(true) }}>添加</Button>
+      </div>
     <Table size='small' dataSource={adminList} columns={columns} />;
+    <AddAdmin open={open} setOpen={setOpen} loadList={loadList}/>
     </>
   )
 }

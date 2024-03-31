@@ -16,3 +16,8 @@ export const $list = async (params)=>{
     let {data} = await axios.get('Admin/List',{params})
     return data
 }
+//添加
+export const $add = async (params)=>{
+    let {data} = await axios.post('Admin/Add',params)
+    return data
+}
