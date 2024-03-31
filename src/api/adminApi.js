@@ -1,4 +1,4 @@
-import axios from '../utils/request'
+// import axios from '../utils/request'
 import md5 from 'md5' //加密
 
 //登录

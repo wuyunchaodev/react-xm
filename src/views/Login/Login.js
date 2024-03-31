@@ -6,11 +6,11 @@ import { $login } from '../../api/adminApi'
 import MyNotification from '../../components/MyNotification/MyNotification';
 export default function Login() {
   //判断是否登录成功
-    useEffect(() =>{
-      if(sessionStorage.getItem('token')){
-        navigate('/layout')
-      }
-    },[])
+    // useEffect(() =>{
+    //   if(sessionStorage.getItem('token')){
+    //     navigate('/layout')
+    //   }
+   // },[])
   //导航
   let navigate =useNavigate()
   
@@ -18,17 +18,20 @@ export default function Login() {
   //打开提示框
   let [from] = Form.useForm()
   //表示表单成功提交
-  const onFinish = async (values) => {
-    let {message,success} = await $login(values)
-    if(success){
-      setNotiMsg({type:'success',description:message})
-     
-      navigate('/layout') //跳转首页
-    }else{
-      setNotiMsg({type:'error',description:message})
-    }
-  };
+  // const onFinish = async (values) => {
+  //   let {message,success} = await $login(values)
+  //   if(success){
+  //     setNotiMsg({type:'success',description:message})
+    navigate('/layout') //跳转首页
+  
+
+      
+  //   }else{
+  //     setNotiMsg({type:'error',description:message})
+  //   }
+  // };
   return (
+    
     <div className='Login'>
       <div className='content'>
   
@@ -47,8 +50,8 @@ export default function Login() {
       loginid:"",
       loginpwd:"",
     }}
-    onFinish={onFinish}
-    autoComplete="off"
+    // onFinish={onFinish}
+    // autoComplete="off"
   >
 
     
@@ -85,7 +88,8 @@ export default function Login() {
         span: 16,
       }}
     >
-      <Button type="primary" htmlType="submit">
+      <Button type="primary" htmlType="submit" 
+      >
         登录
       </Button>
       <Button onClick={() => {
@@ -96,7 +100,7 @@ export default function Login() {
     </Form.Item>
   </Form>
       </div>
-      <MyNotification notiMag={notiMsg}/>//消息框 notiMag是监听状态
+    <MyNotification notiMag={notiMsg}/>
     </div>
   )
 }
