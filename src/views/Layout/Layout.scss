@@ -12,14 +12,8 @@
         line-height: 32px;
     }
     .header{
-        padding: 5px;
+        padding-left: 5px;
         display: flex;
-        border: 1px solid;
-        justify-content: space-between;
-        .mune{
-            padding: 0 10px;
-          
-        }
         .trigger{
             padding: 0 12px;
         font-size: 18px;
@@ -30,17 +24,9 @@
          &:hover{
             color: #1890ff;
          }
-
     }
-   
     }
     .content{
         padding: 5px;
-
     }
-}
-
-
-#componemts-Layout-ddemo-custom-trigger.trigger:hover {
-    color: #1890ff;
 }

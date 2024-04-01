@@ -17,15 +17,18 @@ export default function Login() {
   let [notiMsg,setNotiMsg] = useState({type:'',description:''}) 
   //打开提示框
   let [from] = Form.useForm()
+//写死的账号 密码
+  let username = 'admin'
+  let password = '123456'
+  function layout(){
+    sessionStorage.setItem('token','1234')
+    navigate('/layout') //跳转首页
+  }
   //表示表单成功提交
   // const onFinish = async (values) => {
   //   let {message,success} = await $login(values)
   //   if(success){
   //     setNotiMsg({type:'success',description:message})
-    navigate('/layout') //跳转首页
-  
-
-      
   //   }else{
   //     setNotiMsg({type:'error',description:message})
   //   }
@@ -53,8 +56,6 @@ export default function Login() {
     // onFinish={onFinish}
     // autoComplete="off"
   >
-
-    
      <Form.Item
       label="账号"
       name="loginid"
@@ -88,7 +89,7 @@ export default function Login() {
         span: 16,
       }}
     >
-      <Button type="primary" htmlType="submit" 
+      <Button type="primary" htmlType="submit" onClick={layout}
       >
         登录
       </Button>

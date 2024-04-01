@@ -10,20 +10,17 @@ import {
   AppstoreOutlined, MailOutlined, SettingOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, Button, Modal } from 'antd';
-const {confirm} = Modal;
 import {useNavigate,Outlet} from 'react-router-dom'
 import './Layout.scss'//导入layout
+const {confirm} = Modal;
 const { Header, Sider, Content } = Layout;
 export default function () {
-
   const navigate = useNavigate()
-
   useEffect(()=>{
     if(!sessionStorage.getItem('token')){
       navigate('/')
     }
   },[])
-
   const [current, setCurrent] = useState('mail');
   //顶部菜单项
   const items = [   
@@ -79,7 +76,7 @@ export default function () {
     },
   ];
   //左侧菜单项
-  const items2 = [
+  const items1 = [
     [
       {
         key: '1',
@@ -161,7 +158,6 @@ export default function () {
   }
   //侧边状态栏
   const [collapsed, setCollapsed] = useState(false);
-
   return (
     <Layout className ='layout'>
       <Sider  trigger={null} collapsible collapsed={collapsed}>
@@ -171,13 +167,13 @@ export default function () {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
-          items={items2}
+          items={items1}
         />
       </Sider>
       <Layout className='right'>
         <Header className ='header'>
-
           <Button
+          className='trigger'
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
