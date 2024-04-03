@@ -1,4 +1,5 @@
 // import axios from '../utils/request'
+import axios from 'axios'
 import md5 from 'md5' //加密
 
 //登录
@@ -19,5 +20,11 @@ export const $list = async (params)=>{
 //添加
 export const $add = async (params)=>{
     let {data} = await axios.post('Admin/Add',params)
+    return data
+}
+
+//获取单个账户
+export const $getOne = async ()=>{
+    let {data} = await axios.get('Admin/GetOne',{params})
     return data
 }

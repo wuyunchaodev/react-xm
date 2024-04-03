@@ -1,5 +1,5 @@
-import React ,{useState,useEffect}from 'react'//money
-import {Table,Button} from 'antd'
+import React ,{useState,useEffect}from 'react'//money 交易成功记录
+import {Table,Button,Popconfirm} from 'antd'
 import {$list} from '../../api/adminApi'
 import AddAdmin from './AddAdmin';
 
@@ -8,6 +8,8 @@ export default function Admin() {
      const [open, setOpen] = useState(false);
     //角色列表数据
     let [adminList, setAdminList] = useState([])
+    //编辑状态id
+    let [loginId,setLoginId] = useState(0)
     //表格列数据
     const columns = [
         {
@@ -27,34 +29,38 @@ export default function Admin() {
           },
           {
             title: '电话',
-            dataIndex: 'loginId',
+            dataIndex: 'phone',
             width:'00px',
           },
 
-      //  {
-    //     title:'操作',
-    //     key:'action',
-    //     render:(ret) => (
-    //      <>
-    //      <Button size="small" onClick={()=>{
-    //       edit(ret.roleId)
-    //      }}>
-    //       编辑
-    //      </Button>
-    //       <Popconfirm   //  汽泡
-    //     title="提示"
-    //     description="确定删除吗?"
-    //     onConfirm={()=>{del(ret.roleId);}}
-    //     okText="确定"
-    //     cancelText="取消"
-    //   >
-    //     <Button style={{ marginLeft:'5px'}} danger size='small'>删除</Button>
-    //   </Popconfirm>
-    //      </>
+       {
+        title:'操作',
+        key:'action',
+        render:(ret) => (
+         <>
+         <Button size="small" onClick={()=>{
+          edit(ret.loginId)
+         }}>
+          编辑
+         </Button>
+          <Popconfirm   //  汽泡
+        title="提示"
+        description="确定删除吗?"
+        onConfirm={()=>{del(ret.roleId);}}
+        okText="确定"
+        cancelText="取消"
+      >
+        <Button style={{ marginLeft:'5px'}} danger size='small'>删除</Button>
+      </Popconfirm>
+         </>
          
-    //     ),
-    //     },
+        ),
+        },
        ];
+       const edit = (loginId)=>{
+           setOpen(true) //打开抽屉
+           setLoginId(loginId) //编辑状态
+         }
        const loadList =()=>{
         $list({}).then(({data,count}) => {
           data = data.map(r => {
@@ -75,7 +81,7 @@ export default function Admin() {
         <Button size='small' onClick={() => { setOpen(true) }}>添加</Button>
       </div>
     <Table size='small' dataSource={adminList} columns={columns} />;
-    <AddAdmin open={open} setOpen={setOpen} loadList={loadList}/>
+    <AddAdmin open={open} setOpen={setOpen} LoadList={loadList} LoginId={loginId} setLoginId={setLoginId}/>
     </>
   )
 }

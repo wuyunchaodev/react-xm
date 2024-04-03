@@ -10,12 +10,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path = '/' element={<Login/>}/>
-        <Route path = '/Layout' element={<Layout/>}/>
-        <Route path='role' element={<Role/>}/>
-        <Route path='admin' element={<Admin/>}/>
+        <Route path = '/Layout' element={<Layout/>}>
+          <Route path='role' element={<Role/>}/>
+          <Route path='admin' element={<Admin/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
-
   );
 }
 

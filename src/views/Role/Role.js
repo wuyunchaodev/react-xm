@@ -3,20 +3,19 @@ import { Button,Table, Popconfirm } from 'antd'
 import { $list ,$del} from '../../api/RoleApi'
 import AddRole from './AddRole';
 import MyNotification from '../../components/MyNotification/MyNotification';
-export default function Role() {
-  //编辑状态id
-  let [roleId,setRoleId] = useState(0)
-   //通知栏
-   let [notiMsg,setNotiMsg] = useState({type:'',description:''})
-  //是否打开抽屉
-  const [open, setOpen] = useState(false);
-  //获取列表  
-  let [roleList, setRoleList] = useState([])
-  useEffect(() => {
-   loadList()
-  }, [])
+import axios from 'axios';
 
-  //加载列表数据方法
+export default function Role() {
+  // //编辑状态id
+   let [roleId,setRoleId] = useState(0)
+  //  //通知栏
+    let [notiMsg,setNotiMsg] = useState({type:'',description:''})
+  // 是否打开抽屉
+   const [open, setOpen] = useState(false);
+  // //获取列表  
+   let [roleList, setRoleList] = useState([])
+
+  // //加载列表数据方法
   const loadList =()=>{
     $list().then(data => {
       data = data.map(r => {
@@ -29,12 +28,12 @@ export default function Role() {
       setRoleList(data)
     })
   }
-  //编辑方法
-  const edit = (roleId)=>{
-    setOpen(true) //打开抽屉
-    setRoleId(roleId) //编辑状态
-  }
-  //删除方法
+  // //编辑方法
+   const edit = (roleId)=>{
+     setOpen(true) //打开抽屉
+     setRoleId(roleId) //编辑状态
+   }
+  // //删除方法
   const del = (roleId) =>{
     $del({roleId}).then(({success,message})=>{
         if(success){
@@ -45,20 +44,20 @@ export default function Role() {
         }
     })
   }
-  // const dataSource = [ 自定义表格内容
-  //   {
-  //     key: '1',
-  //     name: '胡彦斌',
-  //     age: 32,
-  //     address: '西湖区湖底公园1号',
-  //   },
-  //   {
-  //     key: '2',
-  //     name: '胡彦祖',
-  //     age: 42,
-  //     address: '西湖区湖底公园1号',
-  //   },
-  // ];
+  const dataSource = [ //自定义表格内容
+    {
+      key: '1',
+      name: '胡彦斌',
+      age: 32,
+      address: '西湖区湖底公园1号',
+    },
+    {
+      key: '2',
+      name: '胡彦祖',
+      age: 42,
+      address: '西湖区湖底公园1号',
+    },
+  ];
 
   const columns = [
     {
@@ -97,14 +96,20 @@ export default function Role() {
     ),
     },
   ];
+ 
+//  都写在table下面
+  useEffect(() => {
+   loadList()
+  }, [])
+
   return (
     <div>
       <div className='search'>
         <Button size='small' onClick={() => { setOpen(true) }}>添加</Button>
       </div>
-      <Table size='small' dataSource={dataSource} columns={columns} />;
+      <Table size='small' dataSource={dataSource} columns={columns} />
       <AddRole open={open} setOpen={setOpen} loadList={loadList } roleId={roleId} setRoleId={setRoleId}/>
-      <MyNotification notiMag={notiMsg} />
+      <MyNotification notiMag={notiMsg}/>
     </div>
   )
 }

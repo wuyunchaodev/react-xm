@@ -77,7 +77,6 @@ export default function () {
   ];
   //左侧菜单项
   const items1 = [
-    [
       {
         key: '1',
         icon: <UserOutlined />,
@@ -87,10 +86,6 @@ export default function () {
             key:'role',
             label:'角色管理'
           },
-          {
-            key:'money',
-            label:'财务管理'
-          }
         ]
       },
       {
@@ -114,16 +109,15 @@ export default function () {
         label: '客户管理',
         children:[
           {
-            key:3-1,
+            key:'3-1',
             label:'商家联系方式'
           },
           {
-            key:3-2,
+            key:'money',
             label:'交易成功记录'
           }
         ]
       },
-    ]
   ]
 
   //点击菜单方法
@@ -134,7 +128,7 @@ export default function () {
       case 'role':
         navigate('/layout/role')
         break;
-        //用户管理
+        //交易成功记录
         case"money":
         navigate("/layout/admin")
         break;

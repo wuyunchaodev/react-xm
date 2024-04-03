@@ -1,7 +1,7 @@
 import React ,{useState,useEffect}from 'react'
 import MyNotification from '../../components/MyNotification/MyNotification';
 import { Button,Drawer,Form, Input } from 'antd'
-import {$add} from '../../api/adminApi'
+import {$add,$getOne} from '../../api/adminApi'
 
 export default function AddAdmin({open,setOpen,loadList,LoginId,setLoginId}) {
       //定义表单实例
@@ -9,12 +9,12 @@ export default function AddAdmin({open,setOpen,loadList,LoginId,setLoginId}) {
   //通知栏
   let [notiMsg,setNotiMsg] = useState({type:'',description:''})
   useEffect(()=>{
-    // if(roleId!==0){
-    //   $getOne({roleId}).then(data=>{
-    //     form.setFieldsValue(data)
-    //   })
-    // }
-  },[])
+    if(LoginId!==0){
+      $getOne({LoginId}).then(data=>{  //接口
+        form.setFieldsValue(data)
+      })
+    }
+  },[LoginId]);
    //表单提交的方法
    const onFinish = (values) => {
     if(LoginId){
@@ -42,7 +42,7 @@ export default function AddAdmin({open,setOpen,loadList,LoginId,setLoginId}) {
    //关闭抽屉
    const onClose = () => {
     clear()//清空
-   // setRoleId(0) //取消编辑状态
+    setLoginId(0) //取消编辑状态
     setOpen(false);//关闭抽屉
   };
   //清空表单的方法
