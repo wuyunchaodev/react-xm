@@ -28,3 +28,13 @@ export const $getOne = async ()=>{
     let {data} = await axios.get('Admin/GetOne',{params})
     return data
 }
+//修改账户
+export const $updata = async (params)=>{
+    let {data} = await axios.post('Admin/Upddate',params)
+    return data
+}
+//删除账户
+export const $del = async (params)=>{
+    let {data} = await axios.post(Admin/Delete,params)
+    return data
+}

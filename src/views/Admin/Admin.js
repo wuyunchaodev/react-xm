@@ -1,9 +1,34 @@
 import React ,{useState,useEffect}from 'react'//money 交易成功记录
-import {Table,Button,Popconfirm} from 'antd'
-import {$list} from '../../api/adminApi'
+import {Table,Button,Popconfirm,Pagination ,Select} from 'antd'
+import {$list,$del} from '../../api/adminApi'
+import {$list as $roleList} from '../../api/RoleApi'
 import AddAdmin from './AddAdmin';
+import MyNotification from '../../components/MyNotification/MyNotification';
 
 export default function Admin() {
+    //货品id 用于筛选列表数据
+    let [roleId,setRoleId] = useState(0)
+    //货品表单
+    let [roleList,setRoleList] = useState([]); //不知道为什么没有调用
+     //加载货品表单的方法
+    const loadRoleList = ()=>{
+      $roleList().then((data) => {
+      data = data.map((r) => {
+        return{
+          value:r.roleId,
+          lable:r.roleName
+        }
+      })
+      data.unshifs({value:0,lable:'请选择类别'})
+      setRoleList(data);
+    })
+  }
+    //总数量
+    let [count,setCount] = useEffect(1)
+    //页码
+    let [pageIndex,setPageIndex] = useState(1)
+    //  //通知栏
+    let [notiMsg,setNotiMsg] = useState({type:'',description:''})
     //是否打开抽屉
      const [open, setOpen] = useState(false);
     //角色列表数据
@@ -20,17 +45,17 @@ export default function Admin() {
         {
           title: '账号',
           dataIndex: 'loginId',
-          width:'00px',
+          width:'200px',
         },
         {
             title: '姓名',
             dataIndex: 'name',
-            width:'00px',
+            width:'100px',
           },
           {
             title: '电话',
             dataIndex: 'phone',
-            width:'00px',
+            width:'300px',
           },
 
        {
@@ -43,10 +68,13 @@ export default function Admin() {
          }}>
           编辑
          </Button>
+         //删除 传id和name
           <Popconfirm   //  汽泡
         title="提示"
         description="确定删除吗?"
-        onConfirm={()=>{del(ret.roleId);}}
+        onConfirm={()=>{
+          del(ret.id,ret.name);
+        }}
         okText="确定"
         cancelText="取消"
       >
@@ -61,27 +89,53 @@ export default function Admin() {
            setOpen(true) //打开抽屉
            setLoginId(loginId) //编辑状态
          }
+         //删除
+         const del = (id,phone) =>{
+          $del({id,phone}).then(({success,message})=>{
+              if(success){
+                setNotiMsg({type:'success',description:message})
+                loadList()
+              }else{
+                setNotiMsg({type:'error',description:message})
+              }
+          })
+        }
+        //加载列表的方法
        const loadList =()=>{
-        $list({}).then(({data,count}) => {
+        $list({roleId,pageSize:8,pageIndex}).then(({data,count}) => {
           data = data.map(r => {
             return {
               ...r,
-              key: r.loginId
+              key: r.loginId,
+              //roleName:r.role.roleName 角色显示
             }
-          })
-          setRoleList(data)
+          });
+          //设置账户数据
+          setRoleList(data);
+          //设置总数量
+          setCount(count);
         })
       }
       useEffect(() => {
-        loadList()
-       }, [])
+        loadRoleList() //加载品类列表数据
+        loadList() //加载列表数据
+       }, [pageIndex])
   return (
     <>
      <div className='search'>
+      <span>品类：</span>
+      <Select size='small' style={{width:'200px'}} options={RoleList} defaultValue={0} onSelect={(value)=>
+        setRoleId(value)
+      }></Select>
+      <Button size='small' onClick={()=>(loadList())}>查询</Button>
         <Button size='small' onClick={() => { setOpen(true) }}>添加</Button>
       </div>
-    <Table size='small' dataSource={adminList} columns={columns} />;
+    <Table size='small' dataSource={adminList} columns={columns} pagination={false}/>;
+    <Pagination defaultCurrent={pageIndex} total={count} pageSize={8} onChange={(page)=>{
+        setPageIndex(page)
+    }}/>; //分页器
     <AddAdmin open={open} setOpen={setOpen} LoadList={loadList} LoginId={loginId} setLoginId={setLoginId}/>
+    <MyNotification notiMag={notiMsg}/>
     </>
   )
 }

@@ -1,6 +1,6 @@
 // import axios from '../utils/request'
-
-// 角色列表
+import axios from 'axios'
+// 货品列表
 export const $list= async ()=>{
     let {data} = await axios.get('Role/list')
     return data

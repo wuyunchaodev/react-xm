@@ -1,10 +1,23 @@
 import React ,{useState,useEffect}from 'react'
 import MyNotification from '../../components/MyNotification/MyNotification';
 import { Button,Drawer,Form, Input } from 'antd'
-import {$add,$getOne} from '../../api/adminApi'
+import {$add,$getOne,$updata} from '../../api/adminApi'
+import { $list } from '../../api/RoleApi'; 
 
 export default function AddAdmin({open,setOpen,loadList,LoginId,setLoginId}) {
-      //定义表单实例
+  //加载货品表单的方法   未调用
+  // const loadRoleList = ()=>{
+  //   $list().then((data) => {
+  //     data = data.map((r) => {
+  //       return{
+  //         value:r.roleId,
+  //         lable:r.roleName
+  //       }
+  //     })
+  //     setRpleList(data);
+  //   })
+  // }
+  //定义表单实例
   let [form] = Form.useForm()
   //通知栏
   let [notiMsg,setNotiMsg] = useState({type:'',description:''})
@@ -18,15 +31,15 @@ export default function AddAdmin({open,setOpen,loadList,LoginId,setLoginId}) {
    //表单提交的方法
    const onFinish = (values) => {
     if(LoginId){
-    //   $updata(values).then(({success,message})=>{
-    //     if(success){
-    //       setNotiMsg({type:'success',description:message})
-    //       loadList()//重新加载
-    //     }
-    //     else{
-    //       setNotiMsg({type:'error',description:message})
-    //     }
-    //   })
+      $updata(values).then(({success,message})=>{
+        if(success){
+          setNotiMsg({type:'success',description:message})
+          loadList()//重新加载
+        }
+        else{
+          setNotiMsg({type:'error',description:message})
+        }
+      })
     }else{
       $add(values).then(({success,message})=>{
         if(success){
@@ -47,7 +60,7 @@ export default function AddAdmin({open,setOpen,loadList,LoginId,setLoginId}) {
   };
   //清空表单的方法
   const clear =() =>{
-    form.resetFieIds()
+    form.resetFields()
   }
   return (
    <>

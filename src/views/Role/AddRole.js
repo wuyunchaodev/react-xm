@@ -47,7 +47,7 @@ export default function AddRole({open,setOpen,loadList,roleId,setRoleId}) {
   };
   //清空表单的方法
   const clear =() =>{
-    form.resetFieIds()
+    form.resetFields()
   }
   return (
    <>
