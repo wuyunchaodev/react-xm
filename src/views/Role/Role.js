@@ -68,6 +68,18 @@ export default function Role() {
     },
     {
       title: '名称',
+      dataIndex: 'name',
+      key: 'name',
+      width:'200px',
+    },
+    {
+      title: '电话',
+      dataIndex: 'phone',
+      key: 'phone',
+      width:'200px',
+    },
+    {
+      title: '角色',
       dataIndex: 'roleName',
       key: 'roleName',
       width:'200px',
@@ -96,8 +108,6 @@ export default function Role() {
     ),
     },
   ];
- 
-//  都写在table下面
   useEffect(() => {
    loadList()
   }, [])

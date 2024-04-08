@@ -2,9 +2,14 @@ import React ,{useState,useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import './Login.scss'
 import { Button, Form, Input } from 'antd';
-import { $login } from '../../api/adminApi'
+import {useDispatch} from 'react-redux'
+import { $login ,$getOne} from '../../api/adminApi'
 import MyNotification from '../../components/MyNotification/MyNotification';
+import { adminSlice } from '../../redux';
 export default function Login() {
+  //定义redux派发器
+//  const dispatch = useDispatch()
+//  let {setAdmin} = adminSlice.actions
   //判断是否登录成功
     // useEffect(() =>{
     //   if(sessionStorage.getItem('token')){
@@ -25,13 +30,16 @@ export default function Login() {
     navigate('/layout') //跳转首页
   }
   //表示表单成功提交
-  // const onFinish = async (values) => {
+     // const onFinish = async (values) => {
   //   let {message,success} = await $login(values)
   //   if(success){
+      // sessionStorage.setItem('loginid',values.loginid)
+      // let admin = await $getOne({loginid:values.loginid}) 
+      // dispatch(setAdmin(admin))
   //     setNotiMsg({type:'success',description:message})
   //   }else{
   //     setNotiMsg({type:'error',description:message})
-  //   }
+   //  }
   // };
   return (
     

@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import 'antd/dist/reset.css';
 import App from './App';
-
+import store from './redux';
+import { Provider ,useDispatch} from 'react-redux';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <App />
+    <Provider store={store}>
+        <App />
+    </Provider>
 );
 
 

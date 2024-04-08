@@ -45,12 +45,12 @@ export default function () {
       icon: <SettingOutlined />,
       children: [
         {
-          key: 'group1',
+          key: 'mine',
           label: '个人中心',
           children: [
             {
               label: '个人信息',
-              key: 'setting:1',
+              key: 'my',
             },
             {
               label: '退出系统',
@@ -113,7 +113,7 @@ export default function () {
             label:'商家联系方式'
           },
           {
-            key:'money',
+            key:'admin',
             label:'交易成功记录'
           }
         ]
@@ -129,8 +129,11 @@ export default function () {
         navigate('/layout/role')
         break;
         //交易成功记录
-        case"money":
+        case 'admin':
         navigate("/layout/admin")
+        break;
+        case 'my':
+        navigate("/layout/mine")
         break;
       //退出系统
       case 'exit':

@@ -44,7 +44,7 @@ export default function Admin() {
         },
         {
           title: '账号',
-          dataIndex: 'loginId',
+          dataIndex: 'loginid',
           width:'200px',
         },
         {
